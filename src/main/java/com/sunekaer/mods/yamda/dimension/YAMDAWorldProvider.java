@@ -1,5 +1,7 @@
-package com.sunekaer.mods.yamda;
+package com.sunekaer.mods.yamda.dimension;
 
+import com.sunekaer.mods.yamda.YAMDA;
+import com.sunekaer.mods.yamda.config.YAMDAConfig;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.gen.IChunkGenerator;

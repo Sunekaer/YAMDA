@@ -1,5 +1,7 @@
 package com.sunekaer.mods.yamda;
 
+import com.sunekaer.mods.yamda.config.YAMDAConfig;
+import com.sunekaer.mods.yamda.dimension.YAMDAWorldProvider;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;

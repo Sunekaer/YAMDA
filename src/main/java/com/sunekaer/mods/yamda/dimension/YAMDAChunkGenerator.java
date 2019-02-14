@@ -1,5 +1,6 @@
-package com.sunekaer.mods.yamda;
+package com.sunekaer.mods.yamda.dimension;
 
+import com.sunekaer.mods.yamda.config.YAMDAConfig;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EnumCreatureType;

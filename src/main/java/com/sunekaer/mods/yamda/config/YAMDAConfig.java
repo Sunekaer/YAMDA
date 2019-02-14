@@ -1,5 +1,6 @@
-package com.sunekaer.mods.yamda;
+package com.sunekaer.mods.yamda.config;
 
+import com.sunekaer.mods.yamda.YAMDA;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;

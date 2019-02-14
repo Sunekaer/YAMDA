@@ -1,3 +1,3 @@
 @javax.annotation.ParametersAreNonnullByDefault
 @mcp.MethodsReturnNonnullByDefault
-package com.sunekaer.mods.yamda.item;
+package com.sunekaer.mods.yamda.dimension;

@@ -1,7 +1,10 @@
 package com.sunekaer.mods.yamda;
 
+import com.sunekaer.mods.yamda.block.BlockPortal;
+import com.sunekaer.mods.yamda.block.YAMDABlocks;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -29,7 +32,7 @@ public class YAMDAEventHandler {
     public static void registerBlocks(RegistryEvent.Register<Block> event)
     {
         IForgeRegistry<Block> r = event.getRegistry();
-        //r.register(withName(new BlockXenOre(), "xen_ore"));
+        r.register(withName(new BlockPortal(), "portal"));
 
     }
 
@@ -37,7 +40,7 @@ public class YAMDAEventHandler {
     public static void registerItems(RegistryEvent.Register<Item> event)
     {
         IForgeRegistry<Item> r = event.getRegistry();
-        //r.register(withName(new ItemBoneMeal(SoilType.SAND), "wet_bone_meal"));
+        r.register(new ItemBlock(YAMDABlocks.PORTAL).setRegistryName("portal"));
     }
 
 }
