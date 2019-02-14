@@ -1,6 +1,6 @@
 package com.sunekaer.mods.yamda;
 
-
+import net.minecraft.block.BlockFalling;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Biomes;
@@ -11,27 +11,23 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.IChunkGenerator;
-import net.minecraft.world.gen.MapGenBase;
-import net.minecraft.world.gen.MapGenCaves;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-
 public class YAMDAChunkGenerator implements IChunkGenerator {
 
     private final World world;
-    private MapGenBase caveGenerator = new MapGenCaves();
     private int worldHeight = YAMDAConfig.world_height;
-
 
     public YAMDAChunkGenerator(World world) {
         this.world = world;
     }
 
     @Override
-    public void populate(int x, int z) {
+    public void populate(int x, int z ) {
         Biomes.EXTREME_HILLS.decorate(world, world.rand, new BlockPos(x * 16, 0, z * 16));
+        BlockFalling.fallInstantly = true;
     }
 
     @Override
@@ -62,30 +58,37 @@ public class YAMDAChunkGenerator implements IChunkGenerator {
                 primer.setBlockState(x1, 0, z1, bedrock);
             }
         }
-        for (x1 = 0; x1 < 16; x1++) {
-            for (y1 = 1; y1 < worldHeight-3; y1++) {
-                for (z1 = 0; z1 < 16; z1++) {
-                    primer.setBlockState(x1, y1, z1, stone);
+        if (YAMDAConfig.grass_enable) {
+            for (x1 = 0; x1 < 16; x1++) {
+                for (y1 = 1; y1 < worldHeight - 3; y1++) {
+                    for (z1 = 0; z1 < 16; z1++) {
+                        primer.setBlockState(x1, y1, z1, stone);
+                    }
+                }
+            }
+            for (x1 = 0; x1 < 16; x1++) {
+                for (y1 = worldHeight - 3; y1 < worldHeight - 1; y1++) {
+                    for (z1 = 0; z1 < 16; z1++) {
+                        primer.setBlockState(x1, y1, z1, dirt);
+                    }
+                }
+            }
+            for (x1 = 0; x1 < 16; x1++) {
+                for (y1 = worldHeight - 1; y1 < worldHeight; y1++) {
+                    for (z1 = 0; z1 < 16; z1++) {
+                        primer.setBlockState(x1, y1, z1, grass);
+                    }
+                }
+            }
+        }else{
+            for (x1 = 0; x1 < 16; x1++) {
+                for (y1 = 1; y1 < worldHeight; y1++) {
+                    for (z1 = 0; z1 < 16; z1++) {
+                        primer.setBlockState(x1, y1, z1, stone);
+                    }
                 }
             }
         }
-        for (x1 = 0; x1 < 16; x1++) {
-            for (y1 = worldHeight-3; y1 < worldHeight-1; y1++) {
-                for (z1 = 0; z1 < 16; z1++) {
-                    primer.setBlockState(x1, y1, z1, dirt);
-                }
-            }
-        }
-        for (x1 = 0; x1 < 16; x1++) {
-            for (y1 = worldHeight-1; y1 < worldHeight; y1++) {
-                for (z1 = 0; z1 < 16; z1++) {
-                    primer.setBlockState(x1, y1, z1, grass);
-                }
-            }
-        }
-
-        if (YAMDAConfig.caves_enable)
-            this.caveGenerator.generate(this.world, x, z, primer);
 
         Chunk chunk = new Chunk(this.world, primer, x, z);
 
@@ -102,8 +105,7 @@ public class YAMDAChunkGenerator implements IChunkGenerator {
 
     @Nullable
     @Override
-    public BlockPos getNearestStructurePos(World worldIn, String structureName, BlockPos position,
-                                           boolean findUnexplored) {
+    public BlockPos getNearestStructurePos(World worldIn, String structureName, BlockPos position, boolean findUnexplored) {
         return null;
     }
 
