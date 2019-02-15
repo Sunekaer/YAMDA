@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 public class BlockPortal extends Block {
 
     public BlockPortal() {
-        super(Material.ROCK);
+        super(Material.PORTAL);
         setHardness(2F);
     }
 
