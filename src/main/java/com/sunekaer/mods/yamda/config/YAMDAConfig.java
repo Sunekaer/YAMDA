@@ -24,10 +24,14 @@ public class YAMDAConfig {
     @Config.Comment("Height of the world")
     public static int world_height = 70;
 
-    @Config.Name("Dimension ID")
+    @Config.Name("Mining dim ID")
     @Config.RangeInt(min = -1000, max = 1000)
-    @Config.Comment("Dimension id")
+    @Config.Comment("Mining dim ID")
     public static int dimensionId = -10;
+    @Config.Name("Overworld dim ID")
+    @Config.RangeInt(min = -1000, max = 1000)
+    @Config.Comment("Overworld dim ID")
+    public static int overworldId = 0;
 
     @SubscribeEvent
     public static void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event)

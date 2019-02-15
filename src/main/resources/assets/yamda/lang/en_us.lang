@@ -1,31 +1,5 @@
-#Blocks, Slabs, Stairs
-tile.balanced_clay.name=Balanced Clay
-tile.balanced_clay_brick.name=Balanced Clay Brick
-tile.balanced_clay_chiseled.name=Chiseled Balanced Clay Brick
-tile.balanced_clay_crucible.name=Balanced Clay Crucible
-
-tile.balanced_clay_slab.name=Balanced Clay Slab
-tile.balanced_clay_brick_slab.name=Balanced Clay Brick Slab
-tile.clay_slab.name=Clay Slab
-
-tile.balanced_clay_stairs.name=Balanced Clay Stairs
-tile.balanced_clay_brick_stairs.name=Balanced Clay Brick Stairs
-tile.clay_stairs.name=Clay Stairs
-
-
-#Items
-item.balanced_clay_ball.name=Balanced Clay
-
-
-
-#Fluid, Fluid Block, Fluid Bucket
-fluid.liquid_balanced_clay=Liquid Balanced Clay
-
-tile.liquid_balanced_clay.name=Liquid Balanced Clay
-
-item.liquid_balanced_clay_bucket.name=Liquid Balanced Clay Bucket
-
-
+#Blocks
+tile.yamda.portal.name=Mining Dim Portal
 
 #Creative Tab
-itemGroup.balancedclay=Balanced Clay
+itemGroup.yamda=YAMDA
