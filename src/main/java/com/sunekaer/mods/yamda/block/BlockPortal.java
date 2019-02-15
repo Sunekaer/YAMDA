@@ -14,16 +14,16 @@ import net.minecraft.world.World;
 public class BlockPortal extends Block {
 
     public BlockPortal() {
-        super(Material.PORTAL);
+        super(Material.ROCK);
         setHardness(2F);
     }
 
     @Override
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos){
             if (worldIn.provider.getDimension() == YAMDAConfig.overworldId){
-                return worldIn.getBlockState(pos).getBlock().isReplaceable(worldIn, pos);
+                return super.canPlaceBlockAt(worldIn, pos);
             } else if (worldIn.provider.getDimension() == YAMDAConfig.dimensionId) {
-                return worldIn.getBlockState(pos).getBlock().isReplaceable(worldIn, pos);
+                return super.canPlaceBlockAt(worldIn, pos);
             } else {
                 return false;
             }
@@ -32,15 +32,11 @@ public class BlockPortal extends Block {
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         if(!worldIn.isRemote) {
-            World otherWorld = worldIn.getMinecraftServer().getWorld(YAMDAConfig.dimensionId);
-            World overWorld = worldIn.getMinecraftServer().getWorld(YAMDAConfig.overworldId);
-            otherWorld.getBlockState(pos);
-            overWorld.getBlockState(pos);
-            BlockPos otherWorldPos = otherWorld.getHeight(pos);
-            BlockPos overWorldPos = overWorld.getHeight(pos);
-
             //FROM OVERWORLD TO MINING DIM
             if (worldIn.provider.getDimension() == YAMDAConfig.overworldId) {
+                World otherWorld = worldIn.getMinecraftServer().getWorld(YAMDAConfig.dimensionId);
+                otherWorld.getBlockState(pos);
+                BlockPos otherWorldPos = otherWorld.getHeight(pos);
                 boolean foundBlock = false;
                 BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos(0, 0, 0);
 
@@ -67,6 +63,9 @@ public class BlockPortal extends Block {
 
             //FROM MINING DIM TO OVERWORLD
             if (worldIn.provider.getDimension() == YAMDAConfig.dimensionId) {
+                World overWorld = worldIn.getMinecraftServer().getWorld(YAMDAConfig.overworldId);
+                overWorld.getBlockState(pos);
+                BlockPos overWorldPos = overWorld.getHeight(pos);
                 boolean foundBlock = false;
                 BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos(0, 0, 0);
 
