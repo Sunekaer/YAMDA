@@ -1,19 +1,15 @@
 package com.sunekaer.mods.yamda.block;
 
-import com.sunekaer.mods.yamda.YAMDA;
 import com.sunekaer.mods.yamda.config.YAMDAConfig;
 import com.sunekaer.mods.yamda.util.WorldTeleporter;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
-import javax.annotation.Nonnull;
 
 public class BlockPortal extends Block {
 

@@ -1,6 +1,5 @@
 package com.sunekaer.mods.yamda.util;
 
-import com.sunekaer.mods.yamda.block.BlockPortal;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.math.BlockPos;
