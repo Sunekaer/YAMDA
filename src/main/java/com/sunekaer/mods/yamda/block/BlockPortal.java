@@ -29,7 +29,6 @@ public class BlockPortal extends Block {
             }
     }
 
-
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         if(!worldIn.isRemote) {
@@ -40,20 +39,21 @@ public class BlockPortal extends Block {
             BlockPos otherWorldPos = otherWorld.getHeight(pos);
             BlockPos overWorldPos = overWorld.getHeight(pos);
 
-
-            //TODO Make it look around on X and Z also
-
             //FROM OVERWORLD TO MINING DIM
             if (worldIn.provider.getDimension() == YAMDAConfig.overworldId) {
                 boolean foundBlock = false;
-                BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos(pos.getX(), 0, pos.getZ());
+                BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos(0, 0, 0);
 
                 for (int y = 0; y < 256; y++) {
-                    mutableBlockPos.setY(y);
-                    if (otherWorld.getBlockState(mutableBlockPos).getBlock() == YAMDABlocks.PORTAL) {
-                        otherWorldPos = new BlockPos(pos.getX(), y + 1, pos.getZ());
-                        foundBlock = true;
-                        break;
+                    for (int x = pos.getX() - 6; x < pos.getX() + 6; x++) {
+                        for (int z = pos.getZ() - 6; z < pos.getZ() + 6; z++) {
+                            mutableBlockPos.setPos(x,y,z);
+                            if (otherWorld.getBlockState(mutableBlockPos).getBlock() == YAMDABlocks.PORTAL) {
+                                otherWorldPos = new BlockPos(x, y + 1, z);
+                                foundBlock = true;
+                                break;
+                            }
+                        }
                     }
                 }
                 if (foundBlock){
@@ -68,14 +68,18 @@ public class BlockPortal extends Block {
             //FROM MINING DIM TO OVERWORLD
             if (worldIn.provider.getDimension() == YAMDAConfig.dimensionId) {
                 boolean foundBlock = false;
-                BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos(pos.getX(), 0, pos.getZ());
+                BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos(0, 0, 0);
 
                 for (int y = 0; y < 256; y++) {
-                    mutableBlockPos.setY(y);
-                    if (overWorld.getBlockState(mutableBlockPos).getBlock() == YAMDABlocks.PORTAL) {
-                        overWorldPos = new BlockPos(pos.getX(), y + 1, pos.getZ());
-                        foundBlock = true;
-                        break;
+                    for (int x = pos.getX() - 6; x < pos.getX() + 6; x++) {
+                        for (int z = pos.getZ() - 6; z < pos.getZ() + 6; z++) {
+                            mutableBlockPos.setPos(x, y, z);
+                            if (overWorld.getBlockState(mutableBlockPos).getBlock() == YAMDABlocks.PORTAL) {
+                                overWorldPos = new BlockPos(x, y + 1, z);
+                                foundBlock = true;
+                                break;
+                            }
+                        }
                     }
                 }
                 if (foundBlock){
