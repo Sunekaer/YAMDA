@@ -5,7 +5,7 @@
   "description": "Yet Another Mining Dimension Attempt",
   "version": "${version}",
   "mcversion": "${mcversion}",
-  "url": "",
+  "url": "https://minecraft.curseforge.com/projects/yamda",
   "updateUrl": "",
   "authorList": ["Sunekaer"],
   "credits": "",
