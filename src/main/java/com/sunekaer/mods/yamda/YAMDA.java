@@ -2,8 +2,8 @@ package com.sunekaer.mods.yamda;
 
 import com.sunekaer.mods.yamda.config.YAMDAConfig;
 import com.sunekaer.mods.yamda.dimension.YAMDAWorldProvider;
+import com.sunekaer.mods.yamda.item.YAMDAItems;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.DimensionType;
 import net.minecraftforge.common.DimensionManager;
@@ -27,7 +27,7 @@ public class YAMDA {
         @Override
         public ItemStack createIcon()
         {
-            return new ItemStack(Items.CARROT);
+            return new ItemStack(YAMDAItems.PORTAL);
         }
     };
 
