@@ -94,7 +94,7 @@ public class YAMDAChunkGenerator implements IChunkGenerator {
         Chunk chunk = new Chunk(this.world, primer, x, z);
 
         byte[] biomeArray = chunk.getBiomeArray();
-        byte id = (byte) Biome.getIdForBiome(Biomes.EXTREME_HILLS);
+        byte id = (byte) Biome.getIdForBiome(Biomes.PLAINS);
         for (int i = 0; i < biomeArray.length; ++i) {
             biomeArray[i] = id;
         }
