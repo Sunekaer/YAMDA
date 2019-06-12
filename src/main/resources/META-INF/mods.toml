@@ -1,0 +1,12 @@
+modLoader="javafml"
+loaderVersion="[25,)"
+issueTrackerURL="https://github.com/Sunekaer/YAMDA/issues"
+[[mods]]
+modId="yamda"
+version="${file.jarVersion}"
+displayName="YAMDA"
+displayURL="https://minecraft.curseforge.com/projects/yamda"
+authors="Sunekaer"
+description='''
+Yet Another Mining Dimension Attempt
+'''

@@ -1,44 +1,44 @@
 package com.sunekaer.mods.yamda.config;
 
-import com.sunekaer.mods.yamda.YAMDA;
-import net.minecraftforge.common.config.Config;
-import net.minecraftforge.common.config.ConfigManager;
-import net.minecraftforge.fml.client.event.ConfigChangedEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
+import net.minecraftforge.common.ForgeConfigSpec.IntValue;
+import org.apache.commons.lang3.tuple.Pair;
 
-@Mod.EventBusSubscriber(modid = YAMDA.MOD_ID)
-@Config(modid = YAMDA.MOD_ID)
 public class YAMDAConfig {
 
-    @Config.Name("Top layer grass")
-    @Config.Comment("Should the layers top of the world be dirt and grass")
-    public static boolean grass_enable = true;
+    public static final ForgeConfigSpec configSpec;
+    public static final ConfigValues CONFIG;
+    static {
+        final Pair<ConfigValues, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(ConfigValues::new);
+        configSpec = specPair.getRight();
+        CONFIG = specPair.getLeft();
+    }
 
-    @Config.Name("Always day")
-    @Config.Comment("Should it always be day")
-    public static boolean day = true;
+    public static class ConfigValues {
+        public BooleanValue grass_enable;
+        public BooleanValue day;
+        public IntValue world_height;
+        public IntValue overworldId;
 
-    @Config.Name("World Height")
-    @Config.RangeInt(min = 5, max = 256)
-    @Config.Comment("Height of the world")
-    public static int world_height = 70;
+        public ConfigValues(ForgeConfigSpec.Builder builder) {
+            grass_enable = builder
+                    .comment("Should the layers top of the world be dirt and grass")
+                    .define("grass_enable", true);
+            day = builder
+                    .comment("Should it always be day")
+                    .define("day", true);
 
-    @Config.Name("Mining dim ID")
-    @Config.RangeInt(min = -1000, max = 1000)
-    @Config.Comment("Mining dim ID")
-    public static int dimensionId = -10;
-    @Config.Name("Overworld dim ID")
-    @Config.RangeInt(min = -1000, max = 1000)
-    @Config.Comment("Overworld dim ID")
-    public static int overworldId = 0;
+            world_height = builder
+                    .comment("Height of the world")
+                    .defineInRange("world_height", 70, 5, 256);
+            overworldId = builder
+                    .comment("Overworld dim ID")
+                    .defineInRange("overworldId", 0, -1000, 1000);
+        }
 
-    @SubscribeEvent
-    public static void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event)
-    {
-        if (event.getModID().equals(YAMDA.MOD_ID))
-        {
-            ConfigManager.sync(YAMDA.MOD_ID, Config.Type.INSTANCE);
+        public int getOverworldId() {
+            return overworldId.get();
         }
     }
 }
