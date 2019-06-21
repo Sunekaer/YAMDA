@@ -20,8 +20,6 @@ import static com.sunekaer.mods.yamda.YAMDA.MODID;
 @Mod.EventBusSubscriber(modid = MODID, bus=Mod.EventBusSubscriber.Bus.MOD)
 public class YAMDAEventHandler {
 
-    public static final ResourceLocation MINING_DIM = new ResourceLocation("yamda:mining_dim");
-
     @SubscribeEvent
     public static void onDimensionModRegistry(RegistryEvent.Register<ModDimension> event){
         event.getRegistry().register(YAMDA.dimension);
@@ -47,10 +45,4 @@ public class YAMDAEventHandler {
     public static void onItemRegistry(RegistryEvent.Register<Item> event) {
         event.getRegistry().register(new BlockItem(YAMDA.portal, new Item.Properties().group(YAMDA.GROUP)).setRegistryName(YAMDA.portal.getRegistryName()));
     }
-
-//    @SubscribeEvent
-//    public static void onModelRegistry(ModelRegistryEvent event) {
-//        net.minecraftforge.client.model.ModelLoader
-//        event.getRegistry().register(new BlockItem(portal, new Item.Properties().group(GROUP)).setRegistryName(portal.getRegistryName()));
-//    }
 }
