@@ -23,9 +23,9 @@ import net.minecraftforge.fml.config.ModConfig;
 public class YAMDA {
 
     public static final String MODID = "yamda";
+    public static DimensionType type;
 
     public static ModDimension dimension = new YAMDAModDimension().setRegistryName(new ResourceLocation("yamda:mining_dim"));
-    public static DimensionType type = DimensionManager.registerDimension(new ResourceLocation(MODID, "mining_dim"), dimension, null, true);
     public static ChunkGeneratorType<GenerationSettings, YAMDAChunkGenerator> generatorType = new ChunkGeneratorType<>(YAMDAChunkGenerator::new, false, GenerationSettings::new);
     public static BiomeProviderType<SingleBiomeProviderSettings, YAMDABiomeProvider> biomeProviderType = new BiomeProviderType<>(YAMDABiomeProvider::new, SingleBiomeProviderSettings::new);
 

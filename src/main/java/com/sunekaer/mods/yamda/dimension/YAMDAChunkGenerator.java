@@ -42,6 +42,7 @@ public class YAMDAChunkGenerator extends ChunkGenerator<GenerationSettings> {
         long i1 = sharedseedrandom.setDecorationSeed(region.getSeed(), k, l);
 
         biome.decorate(GenerationStage.Decoration.VEGETAL_DECORATION, this, region, i1, sharedseedrandom, blockpos);
+        biome.decorate(GenerationStage.Decoration.UNDERGROUND_ORES, this, region, i1, sharedseedrandom, blockpos);
     }
 
     @Override

@@ -22,6 +22,9 @@ public class YAMDAConfig {
         public IntValue overworldId;
 
         public ConfigValues(ForgeConfigSpec.Builder builder) {
+            builder.comment("Time Travel Mod common settings")
+                    .push("common");
+
             grass_enable = builder
                     .comment("Should the layers top of the world be dirt and grass")
                     .define("grass_enable", true);
@@ -35,6 +38,8 @@ public class YAMDAConfig {
             overworldId = builder
                     .comment("Overworld dim ID")
                     .defineInRange("overworldId", 0, -1000, 1000);
+
+            builder.pop();
         }
 
         public int getOverworldId() {

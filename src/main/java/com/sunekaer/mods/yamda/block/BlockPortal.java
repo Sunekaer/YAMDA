@@ -34,17 +34,15 @@ public class BlockPortal extends Block {
 
     @Override
     public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
-        DimensionType yamdaType= DimensionType.byName(YAMDA.dimension.getRegistryName());
-        return (worldIn.getDimension().getType().getId() == YAMDAConfig.CONFIG.getOverworldId() || worldIn.getDimension().getType().getId() == yamdaType.getId()/*YAMDAConfig.dimensionId*/) && super.isValidPosition(state, worldIn, pos);
+        return (worldIn.getDimension().getType().getId() == YAMDAConfig.CONFIG.getOverworldId() || worldIn.getDimension().getType().getId() == YAMDA.type.getId()/*YAMDAConfig.dimensionId*/) && super.isValidPosition(state, worldIn, pos);
     }
 
     @Override
     public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockRayTraceResult rts) {
         if(!worldIn.isRemote) {
             //FROM OVERWORLD TO MINING DIM
-            DimensionType yamdaType= DimensionType.byName(YAMDA.dimension.getRegistryName());
             if (worldIn.getDimension().getType().getId() == YAMDAConfig.CONFIG.getOverworldId()) {
-                World otherWorld = worldIn.getServer().getWorld(yamdaType);
+                World otherWorld = worldIn.getServer().getWorld(YAMDA.type);
                 otherWorld.getBlockState(pos);
                 BlockPos otherWorldPos = otherWorld.getHeight(Heightmap.Type.WORLD_SURFACE, pos);
                 boolean foundBlock = false;
@@ -64,17 +62,17 @@ public class BlockPortal extends Block {
                 }
                 if (foundBlock){
                     playerIn.setPortal(otherWorldPos);
-                    changeDim(((ServerPlayerEntity) playerIn), otherWorldPos, yamdaType);
+                    changeDim(((ServerPlayerEntity) playerIn), otherWorldPos, YAMDA.type);
                 }
                 if (!foundBlock){
                     playerIn.setPortal(otherWorldPos);
                     otherWorld.setBlockState(otherWorldPos.down(), YAMDA.portal.getDefaultState());
-                    changeDim(((ServerPlayerEntity) playerIn), otherWorldPos, yamdaType);
+                    changeDim(((ServerPlayerEntity) playerIn), otherWorldPos, YAMDA.type);
                 }
             }
 
             //FROM MINING DIM TO OVERWORLD
-            if (worldIn.getDimension().getType().getId() == yamdaType.getId()) {
+            if (worldIn.getDimension().getType().getId() == YAMDA.type.getId()) {
                 World overWorld = worldIn.getServer().getWorld(DimensionType.getById(YAMDAConfig.CONFIG.getOverworldId()));
                 overWorld.getBlockState(pos);
                 BlockPos overWorldPos = overWorld.getHeight(Heightmap.Type.WORLD_SURFACE, pos);

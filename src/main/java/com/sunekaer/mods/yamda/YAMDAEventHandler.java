@@ -15,34 +15,32 @@ import net.minecraftforge.event.world.RegisterDimensionsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(modid = YAMDA.MODID, bus=Mod.EventBusSubscriber.Bus.MOD)
+import static com.sunekaer.mods.yamda.YAMDA.MODID;
+
+@Mod.EventBusSubscriber(modid = MODID, bus=Mod.EventBusSubscriber.Bus.MOD)
 public class YAMDAEventHandler {
 
     public static final ResourceLocation MINING_DIM = new ResourceLocation("yamda:mining_dim");
 
     @SubscribeEvent
-    public static void onDimensionTypeRegistry(RegistryEvent.Register<DimensionType> event){
-        event.getRegistry().register(YAMDA.type);
-    }
-
-    @SubscribeEvent
     public static void onDimensionModRegistry(RegistryEvent.Register<ModDimension> event){
         event.getRegistry().register(YAMDA.dimension);
+        YAMDA.type = DimensionManager.registerDimension(new ResourceLocation(MODID, "mining_dim"), YAMDA.dimension, null, true);
     }
 
     @SubscribeEvent
     public static void onChunkGeneratorTypeRegistry(RegistryEvent.Register<ChunkGeneratorType<?, ?>> event){
-        event.getRegistry().register(YAMDA.generatorType.setRegistryName(YAMDA.MODID, "generator"));
+        event.getRegistry().register(YAMDA.generatorType.setRegistryName(MODID, "generator"));
     }
 
     @SubscribeEvent
     public static void onBiomeProviderTypeRegistry(RegistryEvent.Register<BiomeProviderType<?, ?>> event){
-        event.getRegistry().register(YAMDA.biomeProviderType.setRegistryName(YAMDA.MODID, "generator"));
+        event.getRegistry().register(YAMDA.biomeProviderType.setRegistryName(MODID, "generator"));
     }
 
     @SubscribeEvent
     public static void onBlockRegistry(RegistryEvent.Register<Block> event) {
-        event.getRegistry().register(YAMDA.portal.setRegistryName(YAMDA.MODID, "portal"));
+        event.getRegistry().register(YAMDA.portal.setRegistryName(MODID, "portal"));
     }
 
     @SubscribeEvent
