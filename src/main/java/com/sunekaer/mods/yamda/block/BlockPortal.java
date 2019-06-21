@@ -61,11 +61,9 @@ public class BlockPortal extends Block {
                     }
                 }
                 if (foundBlock){
-                    playerIn.setPortal(otherWorldPos);
                     changeDim(((ServerPlayerEntity) playerIn), otherWorldPos, YAMDA.type);
                 }
                 if (!foundBlock){
-                    playerIn.setPortal(otherWorldPos);
                     otherWorld.setBlockState(otherWorldPos.down(), YAMDA.portal.getDefaultState());
                     changeDim(((ServerPlayerEntity) playerIn), otherWorldPos, YAMDA.type);
                 }
@@ -92,11 +90,9 @@ public class BlockPortal extends Block {
                     }
                 }
                 if (foundBlock){
-                    playerIn.setPortal(overWorldPos);
                     changeDim(((ServerPlayerEntity) playerIn), overWorldPos, DimensionType.getById(YAMDAConfig.CONFIG.getOverworldId()));
                 }
                 if (!foundBlock){
-                    playerIn.setPortal(overWorldPos);
                     overWorld.setBlockState(overWorldPos.down(), YAMDA.portal.getDefaultState());
                     changeDim(((ServerPlayerEntity) playerIn), overWorldPos, DimensionType.getById(YAMDAConfig.CONFIG.getOverworldId()));
                 }
