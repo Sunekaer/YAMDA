@@ -37,7 +37,7 @@ public class YAMDAChunkGenerator extends ChunkGenerator<GenerationSettings> {
         int k = i * 16;
         int l = j * 16;
         BlockPos blockpos = new BlockPos(k, 0, l);
-        Biome biome = this.getBiome(region, blockpos.add(8, 8, 8));
+        Biome biome = Biomes.MOUNTAINS;
         SharedSeedRandom sharedseedrandom = new SharedSeedRandom();
         long i1 = sharedseedrandom.setDecorationSeed(region.getSeed(), k, l);
 
