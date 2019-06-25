@@ -55,7 +55,7 @@ public class YAMDABiomeProvider extends BiomeProvider {
     @Override
     public Set<BlockState> getSurfaceBlocks() {
         if (this.topBlocksCache.isEmpty()) {
-            this.topBlocksCache.add(this.biome.getSurfaceBuilderConfig().getTopMaterial());
+            this.topBlocksCache.add(this.biome.getSurfaceBuilderConfig().getTop());
         }
 
         return this.topBlocksCache;

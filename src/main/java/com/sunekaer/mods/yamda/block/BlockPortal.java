@@ -116,7 +116,7 @@ public class BlockPortal extends Block {
         WorldInfo worldinfo = player.world.getWorldInfo();
         player.connection.sendPacket(new SRespawnPacket(type, worldinfo.getGenerator(), player.interactionManager.getGameType()));
         player.connection.sendPacket(new SServerDifficultyPacket(worldinfo.getDifficulty(), worldinfo.isDifficultyLocked()));
-        PlayerList playerlist = player.server.getPlayerList();
+        PlayerList playerlist = player.server.func_184103_al();
         playerlist.updatePermissionLevel(player);
         serverworld.removeEntity(player, true);
         player.revive();

@@ -99,9 +99,6 @@ public class YAMDAChunkGenerator extends ChunkGenerator<GenerationSettings> {
         return this.world.getSeaLevel() + 1;
     }
 
-    @Override
-    public void func_222537_b(IWorld p_222537_1_, IChunk p_222537_2_) {
-    }
 
     @Override
     public int func_222529_a(int p_222529_1_, int p_222529_2_, Heightmap.Type p_222529_3_) {
@@ -134,9 +131,10 @@ public class YAMDAChunkGenerator extends ChunkGenerator<GenerationSettings> {
     }
 
     @Override
-    public void func_222528_a(IWorld p_222528_1_, IChunk p_222528_2_) {
+    public void makeBase(IWorld iWorld, IChunk iChunk) {
 
     }
+
 
     @Nullable
     @Override
