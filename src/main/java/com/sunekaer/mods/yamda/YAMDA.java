@@ -28,6 +28,7 @@ import java.util.function.BiFunction;
 public class YAMDA {
 
     public static final String MODID = "yamda";
+    public static final ResourceLocation MINING_DIM = new ResourceLocation("yamda:mining_dim");
 
     public static ModDimension dimension = new ModDimension() {
         @Override
@@ -35,7 +36,6 @@ public class YAMDA {
             return YAMDADimension::new;
         }
     }.setRegistryName(new ResourceLocation("yamda:mining_dim"));
-    public static DimensionType type = DimensionManager.registerDimension(new ResourceLocation(MODID, "mining_dim"), YAMDA.dimension, null, true);
     public static ChunkGeneratorType<GenerationSettings, YAMDAChunkGenerator> generatorType = new ChunkGeneratorType<>(YAMDAChunkGenerator::new, false, GenerationSettings::new);
     public static BiomeProviderType<SingleBiomeProviderSettings, YAMDABiomeProvider> biomeProviderType = new BiomeProviderType<>(YAMDABiomeProvider::new, SingleBiomeProviderSettings::new);
 
