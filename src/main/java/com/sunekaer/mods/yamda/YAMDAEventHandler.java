@@ -5,6 +5,7 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.provider.BiomeProviderType;
+import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.ChunkGeneratorType;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.ModDimension;
@@ -20,7 +21,7 @@ public class YAMDAEventHandler {
     @SubscribeEvent
     public static void onDimensionModRegistry(RegistryEvent.Register<ModDimension> event){
         event.getRegistry().register(YAMDA.dimension);
-        YAMDA.type = DimensionManager.registerDimension(new ResourceLocation(MODID, "mining_dim"), YAMDA.dimension, null, true);
+        DimensionManager.registerDimension(new ResourceLocation(MODID, "mining_dim"), YAMDA.dimension, null, true);
     }
 
     @SubscribeEvent
