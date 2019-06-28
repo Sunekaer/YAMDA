@@ -34,7 +34,7 @@ public class BlockPortal extends Block {
 
     @Override
     public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
-        return (worldIn.getDimension().getType().getId() == YAMDAConfig.CONFIG.getOverworldId() || worldIn.getDimension().getType().getId() == DimensionType.byName(YAMDA.MINING_DIM).getId()/*YAMDAConfig.dimensionId*/) && super.isValidPosition(state, worldIn, pos);
+        return (worldIn.getDimension().getType().getId() == YAMDAConfig.CONFIG.getOverworldId() || worldIn.getDimension().getType() == DimensionType.byName(YAMDA.MINING_DIM) && super.isValidPosition(state, worldIn, pos));
     }
 
     @Override
@@ -70,7 +70,7 @@ public class BlockPortal extends Block {
             }
 
             //FROM MINING DIM TO OVERWORLD
-            if (worldIn.getDimension().getType().getId() == DimensionType.byName(YAMDA.MINING_DIM).getId()) {
+            if (worldIn.getDimension().getType() == DimensionType.byName(YAMDA.MINING_DIM)) {
                 World overWorld = worldIn.getServer().getWorld(DimensionType.getById(YAMDAConfig.CONFIG.getOverworldId()));
                 overWorld.getBlockState(pos);
                 BlockPos overWorldPos = overWorld.getHeight(Heightmap.Type.WORLD_SURFACE, pos);
