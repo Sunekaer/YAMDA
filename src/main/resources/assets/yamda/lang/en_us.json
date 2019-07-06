@@ -1,4 +1,5 @@
 {
   "itemGroup.yamda": "YAMDA",
-  "block.yamda.portal": "Mining Dim Portal"
+  "block.yamda.portal": "Mining Dim Portal",
+  "block.yamda.portal.tooltip": "§cRight-click portal to teleport"
 }

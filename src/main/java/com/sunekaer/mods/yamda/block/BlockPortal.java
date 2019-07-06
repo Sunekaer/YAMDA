@@ -5,8 +5,10 @@ import com.sunekaer.mods.yamda.config.YAMDAConfig;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.server.SPlayEntityEffectPacket;
 import net.minecraft.network.play.server.SPlaySoundEventPacket;
 import net.minecraft.network.play.server.SPlayerAbilitiesPacket;
@@ -17,6 +19,9 @@ import net.minecraft.server.management.PlayerList;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.ServerWorld;
 import net.minecraft.world.World;
@@ -25,6 +30,9 @@ import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.storage.WorldInfo;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.fml.hooks.BasicEventHooks;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 public class BlockPortal extends Block {
 
@@ -35,6 +43,11 @@ public class BlockPortal extends Block {
     @Override
     public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
         return (worldIn.getDimension().getType().getId() == YAMDAConfig.CONFIG.getOverworldId() || worldIn.getDimension().getType() == DimensionType.byName(YAMDA.MINING_DIM) && super.isValidPosition(state, worldIn, pos));
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable IBlockReader worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+        tooltip.add(new TranslationTextComponent("block.yamda.portal.tooltip"));
     }
 
     @Override
