@@ -22,7 +22,7 @@ public class YAMDAConfig {
         public IntValue overworldId;
 
         public ConfigValues(ForgeConfigSpec.Builder builder) {
-            builder.comment("Time Travel Mod common settings")
+            builder.comment("YAMDA Config.")
                     .push("common");
 
             grass_enable = builder

@@ -12,7 +12,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '4.0.0'
+version = '4.0.1'
 group = 'com.sunekaer.mods'
 archivesBaseName = 'YAMDA'
 
@@ -60,7 +60,7 @@ minecraft {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.14.4-28.0.2'
+    minecraft 'net.minecraftforge:forge:1.14.4-28.0.45'
 }
 
 jar {
