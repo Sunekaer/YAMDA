@@ -9,6 +9,7 @@ public class YAMDAConfig {
 
     public static final ForgeConfigSpec configSpec;
     public static final ConfigValues CONFIG;
+
     static {
         final Pair<ConfigValues, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(ConfigValues::new);
         configSpec = specPair.getRight();

@@ -12,11 +12,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.chunk.IChunk;
-import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.GenerationSettings;
-import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.Heightmap;
-import net.minecraft.world.gen.WorldGenRegion;
+import net.minecraft.world.gen.*;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.feature.template.TemplateManager;
@@ -83,7 +79,7 @@ public class YAMDAChunkGenerator extends ChunkGenerator<GenerationSettings> {
                     }
                 }
             }
-        }else{
+        } else {
             for (x1 = 0; x1 < 16; x1++) {
                 for (y1 = 1; y1 < worldHeight; y1++) {
                     for (z1 = 0; z1 < 16; z1++) {

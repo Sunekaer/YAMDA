@@ -9,11 +9,7 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.play.server.SPlayEntityEffectPacket;
-import net.minecraft.network.play.server.SPlaySoundEventPacket;
-import net.minecraft.network.play.server.SPlayerAbilitiesPacket;
-import net.minecraft.network.play.server.SRespawnPacket;
-import net.minecraft.network.play.server.SServerDifficultyPacket;
+import net.minecraft.network.play.server.*;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.server.management.PlayerList;
 import net.minecraft.util.Hand;
@@ -24,7 +20,6 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import net.minecraft.world.dimension.Dimension;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.server.ServerWorld;
@@ -41,86 +36,6 @@ public class BlockPortal extends Block {
     public BlockPortal() {
         super(Block.Properties.create(Material.PORTAL).hardnessAndResistance(2F));
     }
-
-    @Override
-    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
-        return (worldIn.getDimension().getType().getId() == YAMDAConfig.CONFIG.getOverworldId() || worldIn.getDimension().getType() == DimensionType.byName(YAMDA.YAMDA_DIM) && super.isValidPosition(state, worldIn, pos));
-    }
-
-    @Override
-    public void addInformation(ItemStack stack, @Nullable IBlockReader worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-        tooltip.add(new TranslationTextComponent("block.yamda.portal.tooltip"));
-    }
-
-    @Override
-    public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockRayTraceResult rts) {
-        if(!worldIn.isRemote) {
-            //FROM OVERWORLD TO MINING DIM
-            if (worldIn.getDimension().getType().getId() == YAMDAConfig.CONFIG.getOverworldId()) {
-                if(DimensionType.byName(YAMDA.YAMDA_DIM) == null){
-                    DimensionManager.registerDimension(YAMDA.YAMDA_DIM, YAMDA.dimension, null, true);
-                }
-                World otherWorld = worldIn.getServer().getWorld(DimensionType.byName(YAMDA.YAMDA_DIM));
-                otherWorld.getBlockState(pos);
-                BlockPos otherWorldPos = otherWorld.getHeight(Heightmap.Type.WORLD_SURFACE, pos);
-                boolean foundBlock = false;
-                BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos(0, 0, 0);
-
-                for (int y = 0; y < 256; y++) {
-                    for (int x = pos.getX() - 6; x < pos.getX() + 6; x++) {
-                        for (int z = pos.getZ() - 6; z < pos.getZ() + 6; z++) {
-                            mutableBlockPos.setPos(x,y,z);
-                            if (otherWorld.getBlockState(mutableBlockPos).getBlock() == YAMDA.portal) {
-                                otherWorldPos = new BlockPos(x, y + 1, z);
-                                foundBlock = true;
-                                break;
-                            }
-                        }
-                    }
-                }
-                if (foundBlock){
-                    changeDim(((ServerPlayerEntity) playerIn), otherWorldPos, DimensionType.byName(YAMDA.YAMDA_DIM));
-                }
-                if (!foundBlock){
-                    otherWorld.setBlockState(otherWorldPos.down(), YAMDA.portal.getDefaultState());
-                    changeDim(((ServerPlayerEntity) playerIn), otherWorldPos, DimensionType.byName(YAMDA.YAMDA_DIM));
-                }
-            }
-
-            //FROM MINING DIM TO OVERWORLD
-            if (worldIn.getDimension().getType() == DimensionType.byName(YAMDA.YAMDA_DIM)) {
-                World overWorld = worldIn.getServer().getWorld(DimensionType.getById(YAMDAConfig.CONFIG.getOverworldId()));
-                overWorld.getBlockState(pos);
-                BlockPos overWorldPos = overWorld.getHeight(Heightmap.Type.WORLD_SURFACE, pos);
-                boolean foundBlock = false;
-                BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos(0, 0, 0);
-
-                for (int y = 0; y < 256; y++) {
-                    for (int x = pos.getX() - 6; x < pos.getX() + 6; x++) {
-                        for (int z = pos.getZ() - 6; z < pos.getZ() + 6; z++) {
-                            mutableBlockPos.setPos(x, y, z);
-                            if (overWorld.getBlockState(mutableBlockPos).getBlock() == YAMDA.portal) {
-                                overWorldPos = new BlockPos(x, y + 1, z);
-                                foundBlock = true;
-                                break;
-                            }
-                        }
-                    }
-                }
-                if (foundBlock){
-                    changeDim(((ServerPlayerEntity) playerIn), overWorldPos, DimensionType.getById(YAMDAConfig.CONFIG.getOverworldId()));
-                }
-                if (!foundBlock){
-                    overWorld.setBlockState(overWorldPos.down(), YAMDA.portal.getDefaultState());
-                    changeDim(((ServerPlayerEntity) playerIn), overWorldPos, DimensionType.getById(YAMDAConfig.CONFIG.getOverworldId()));
-                }
-            }
-
-            return true;
-        }
-        return false;
-    }
-
 
     public static void changeDim(ServerPlayerEntity player, BlockPos pos, DimensionType type) { // copy from ServerPlayerEntity#changeDimension
         if (!ForgeHooks.onTravelToDimension(player, type)) return;
@@ -155,7 +70,7 @@ public class BlockPortal extends Block {
         playerlist.sendWorldInfo(player, serverworld1);
         playerlist.sendInventory(player);
 
-        for(EffectInstance effectinstance : player.getActivePotionEffects()) {
+        for (EffectInstance effectinstance : player.getActivePotionEffects()) {
             player.connection.sendPacket(new SPlayEntityEffectPacket(player.getEntityId(), effectinstance));
         }
 
@@ -164,5 +79,84 @@ public class BlockPortal extends Block {
         player.lastHealth = -1F;
         player.lastFoodLevel = -1;
         BasicEventHooks.firePlayerChangedDimensionEvent(player, dimensiontype, type);
+    }
+
+    @Override
+    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
+        return (worldIn.getDimension().getType().getId() == YAMDAConfig.CONFIG.getOverworldId() || worldIn.getDimension().getType() == DimensionType.byName(YAMDA.YAMDA_DIM) && super.isValidPosition(state, worldIn, pos));
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable IBlockReader worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+        tooltip.add(new TranslationTextComponent("block.yamda.portal.tooltip"));
+    }
+
+    @Override
+    public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockRayTraceResult rts) {
+        if (!worldIn.isRemote) {
+            //FROM OVERWORLD TO MINING DIM
+            if (worldIn.getDimension().getType().getId() == YAMDAConfig.CONFIG.getOverworldId()) {
+                if (DimensionType.byName(YAMDA.YAMDA_DIM) == null) {
+                    DimensionManager.registerDimension(YAMDA.YAMDA_DIM, YAMDA.dimension, null, true);
+                }
+                World otherWorld = worldIn.getServer().getWorld(DimensionType.byName(YAMDA.YAMDA_DIM));
+                otherWorld.getBlockState(pos);
+                BlockPos otherWorldPos = otherWorld.getHeight(Heightmap.Type.WORLD_SURFACE, pos);
+                boolean foundBlock = false;
+                BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos(0, 0, 0);
+
+                for (int y = 0; y < 256; y++) {
+                    for (int x = pos.getX() - 6; x < pos.getX() + 6; x++) {
+                        for (int z = pos.getZ() - 6; z < pos.getZ() + 6; z++) {
+                            mutableBlockPos.setPos(x, y, z);
+                            if (otherWorld.getBlockState(mutableBlockPos).getBlock() == YAMDA.portal) {
+                                otherWorldPos = new BlockPos(x, y + 1, z);
+                                foundBlock = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (foundBlock) {
+                    changeDim(((ServerPlayerEntity) playerIn), otherWorldPos, DimensionType.byName(YAMDA.YAMDA_DIM));
+                }
+                if (!foundBlock) {
+                    otherWorld.setBlockState(otherWorldPos.down(), YAMDA.portal.getDefaultState());
+                    changeDim(((ServerPlayerEntity) playerIn), otherWorldPos, DimensionType.byName(YAMDA.YAMDA_DIM));
+                }
+            }
+
+            //FROM MINING DIM TO OVERWORLD
+            if (worldIn.getDimension().getType() == DimensionType.byName(YAMDA.YAMDA_DIM)) {
+                World overWorld = worldIn.getServer().getWorld(DimensionType.getById(YAMDAConfig.CONFIG.getOverworldId()));
+                overWorld.getBlockState(pos);
+                BlockPos overWorldPos = overWorld.getHeight(Heightmap.Type.WORLD_SURFACE, pos);
+                boolean foundBlock = false;
+                BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos(0, 0, 0);
+
+                for (int y = 0; y < 256; y++) {
+                    for (int x = pos.getX() - 6; x < pos.getX() + 6; x++) {
+                        for (int z = pos.getZ() - 6; z < pos.getZ() + 6; z++) {
+                            mutableBlockPos.setPos(x, y, z);
+                            if (overWorld.getBlockState(mutableBlockPos).getBlock() == YAMDA.portal) {
+                                overWorldPos = new BlockPos(x, y + 1, z);
+                                foundBlock = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (foundBlock) {
+                    changeDim(((ServerPlayerEntity) playerIn), overWorldPos, DimensionType.getById(YAMDAConfig.CONFIG.getOverworldId()));
+                }
+                if (!foundBlock) {
+                    overWorld.setBlockState(overWorldPos.down(), YAMDA.portal.getDefaultState());
+                    changeDim(((ServerPlayerEntity) playerIn), overWorldPos, DimensionType.getById(YAMDAConfig.CONFIG.getOverworldId()));
+                }
+            }
+
+            return true;
+        }
+        return false;
     }
 }

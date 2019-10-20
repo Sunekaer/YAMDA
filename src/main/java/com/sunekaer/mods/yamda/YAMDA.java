@@ -26,7 +26,7 @@ import java.util.function.BiFunction;
 public class YAMDA {
 
     public static final String MODID = "yamda";
-    public static final ResourceLocation YAMDA_DIM = new ResourceLocation(MODID,"yamda_dim");
+    public static final ResourceLocation YAMDA_DIM = new ResourceLocation(MODID, "yamda_dim");
 
     public static ModDimension dimension = new ModDimension() {
         @Override
