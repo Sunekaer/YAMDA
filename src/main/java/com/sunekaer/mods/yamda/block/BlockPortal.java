@@ -24,10 +24,12 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
+import net.minecraft.world.dimension.Dimension;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.storage.WorldInfo;
+import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.fml.hooks.BasicEventHooks;
 
@@ -42,7 +44,7 @@ public class BlockPortal extends Block {
 
     @Override
     public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
-        return (worldIn.getDimension().getType().getId() == YAMDAConfig.CONFIG.getOverworldId() || worldIn.getDimension().getType() == DimensionType.byName(YAMDA.MINING_DIM) && super.isValidPosition(state, worldIn, pos));
+        return (worldIn.getDimension().getType().getId() == YAMDAConfig.CONFIG.getOverworldId() || worldIn.getDimension().getType() == DimensionType.byName(YAMDA.YAMDA_DIM) && super.isValidPosition(state, worldIn, pos));
     }
 
     @Override
@@ -55,7 +57,10 @@ public class BlockPortal extends Block {
         if(!worldIn.isRemote) {
             //FROM OVERWORLD TO MINING DIM
             if (worldIn.getDimension().getType().getId() == YAMDAConfig.CONFIG.getOverworldId()) {
-                World otherWorld = worldIn.getServer().getWorld(DimensionType.byName(YAMDA.MINING_DIM));
+                if(DimensionType.byName(YAMDA.YAMDA_DIM) == null){
+                    DimensionManager.registerDimension(YAMDA.YAMDA_DIM, YAMDA.dimension, null, true);
+                }
+                World otherWorld = worldIn.getServer().getWorld(DimensionType.byName(YAMDA.YAMDA_DIM));
                 otherWorld.getBlockState(pos);
                 BlockPos otherWorldPos = otherWorld.getHeight(Heightmap.Type.WORLD_SURFACE, pos);
                 boolean foundBlock = false;
@@ -74,16 +79,16 @@ public class BlockPortal extends Block {
                     }
                 }
                 if (foundBlock){
-                    changeDim(((ServerPlayerEntity) playerIn), otherWorldPos, DimensionType.byName(YAMDA.MINING_DIM));
+                    changeDim(((ServerPlayerEntity) playerIn), otherWorldPos, DimensionType.byName(YAMDA.YAMDA_DIM));
                 }
                 if (!foundBlock){
                     otherWorld.setBlockState(otherWorldPos.down(), YAMDA.portal.getDefaultState());
-                    changeDim(((ServerPlayerEntity) playerIn), otherWorldPos, DimensionType.byName(YAMDA.MINING_DIM));
+                    changeDim(((ServerPlayerEntity) playerIn), otherWorldPos, DimensionType.byName(YAMDA.YAMDA_DIM));
                 }
             }
 
             //FROM MINING DIM TO OVERWORLD
-            if (worldIn.getDimension().getType() == DimensionType.byName(YAMDA.MINING_DIM)) {
+            if (worldIn.getDimension().getType() == DimensionType.byName(YAMDA.YAMDA_DIM)) {
                 World overWorld = worldIn.getServer().getWorld(DimensionType.getById(YAMDAConfig.CONFIG.getOverworldId()));
                 overWorld.getBlockState(pos);
                 BlockPos overWorldPos = overWorld.getHeight(Heightmap.Type.WORLD_SURFACE, pos);

@@ -26,14 +26,14 @@ import java.util.function.BiFunction;
 public class YAMDA {
 
     public static final String MODID = "yamda";
-    public static final ResourceLocation MINING_DIM = new ResourceLocation("yamda:mining_dim");
+    public static final ResourceLocation YAMDA_DIM = new ResourceLocation(MODID,"yamda_dim");
 
     public static ModDimension dimension = new ModDimension() {
         @Override
         public BiFunction<World, DimensionType, ? extends Dimension> getFactory() {
             return YAMDADimension::new;
         }
-    }.setRegistryName(new ResourceLocation("yamda:mining_dim"));
+    }.setRegistryName(YAMDA_DIM);
 
     public static ChunkGeneratorType<GenerationSettings, YAMDAChunkGenerator> generatorType = new ChunkGeneratorType<>(YAMDAChunkGenerator::new, false, GenerationSettings::new);
     public static BiomeProviderType<SingleBiomeProviderSettings, YAMDABiomeProvider> biomeProviderType = new BiomeProviderType<>(YAMDABiomeProvider::new, SingleBiomeProviderSettings::new);

@@ -21,7 +21,7 @@ public class YAMDAEventHandler {
     @SubscribeEvent
     public static void onDimensionModRegistry(RegistryEvent.Register<ModDimension> event){
         event.getRegistry().register(YAMDA.dimension);
-        DimensionManager.registerDimension(new ResourceLocation(MODID, "mining_dim"), YAMDA.dimension, null, true);
+        DimensionManager.registerDimension(YAMDA.YAMDA_DIM, YAMDA.dimension, null, true);
     }
 
     @SubscribeEvent
