@@ -17,7 +17,9 @@ public class YAMDABiomeProvider extends BiomeProvider {
     private final Biome biome;
 
     public YAMDABiomeProvider(SingleBiomeProviderSettings settings) {
-        this.biome = settings.getBiome();
+        super((Set<Biome>) Biomes.PLAINS);
+        this.biome = Biomes.PLAINS;
+
     }
 
     @Override
@@ -25,21 +27,10 @@ public class YAMDABiomeProvider extends BiomeProvider {
         return SPAWN;
     }
 
-    @Override
-    public Biome getBiome(int x, int y) {
-        return this.biome;
-    }
-
-    @Override
-    public Biome[] getBiomes(int x, int z, int width, int length, boolean cacheFlag) {
-        Biome[] abiome = new Biome[width * length];
-        Arrays.fill(abiome, 0, width * length, this.biome);
-        return abiome;
-    }
 
     @Override
     @Nullable
-    public BlockPos findBiomePosition(int x, int z, int range, List<Biome> biomes, Random random) {
+    public BlockPos func_225531_a_(int x, int z, int range, int p_225531_4_, List<Biome> biomes, Random random) {
         return biomes.contains(this.biome) ? new BlockPos(x - range + random.nextInt(range * 2 + 1), 0, z - range + random.nextInt(range * 2 + 1)) : null;
     }
 
@@ -48,17 +39,23 @@ public class YAMDABiomeProvider extends BiomeProvider {
         return false;
     }
 
-    @Override
-    public Set<BlockState> getSurfaceBlocks() {
-        if (this.topBlocksCache.isEmpty()) {
-            this.topBlocksCache.add(this.biome.getSurfaceBuilderConfig().getTop());
-        }
+//    @Override
+//    public Set<BlockState> getSurfaceBlocks() {
+//        if (this.topBlocksCache.isEmpty()) {
+//            this.topBlocksCache.add(this.biome.getSurfaceBuilderConfig().getTop());
+//        }
+//
+//        return this.topBlocksCache;
+//    }
 
-        return this.topBlocksCache;
+    @Override
+    public Set<Biome> func_225530_a_(int p_225530_1_, int p_225530_2_, int p_225530_3_, int p_225530_4_) {
+        return Sets.newHashSet(this.biome);
     }
 
+
     @Override
-    public Set<Biome> getBiomesInSquare(int centerX, int centerZ, int sideLength) {
-        return Sets.newHashSet(this.biome);
+    public Biome func_225526_b_(int i, int i1, int i2) {
+        return Biomes.PLAINS;
     }
 }

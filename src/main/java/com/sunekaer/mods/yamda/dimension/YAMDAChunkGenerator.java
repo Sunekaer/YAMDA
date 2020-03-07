@@ -9,6 +9,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeManager;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.chunk.IChunk;
@@ -42,7 +43,7 @@ public class YAMDAChunkGenerator extends ChunkGenerator<GenerationSettings> {
     }
 
     @Override
-    public void generateSurface(IChunk chunk) {
+    public void func_225551_a_(WorldGenRegion p_225551_1_, IChunk chunk) {
         BlockState bedrock = Blocks.BEDROCK.getDefaultState();
         BlockState stone = Blocks.STONE.getDefaultState();
         BlockState dirt = Blocks.DIRT.getDefaultState();
@@ -50,32 +51,32 @@ public class YAMDAChunkGenerator extends ChunkGenerator<GenerationSettings> {
         int x1, y1, z1;
         int worldHeight = YAMDAConfig.CONFIG.world_height.get();
 
-        BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
+        BlockPos.Mutable pos = new BlockPos.Mutable();
 
         for (x1 = 0; x1 < 16; x1++) {
             for (z1 = 0; z1 < 16; z1++) {
-                chunk.setBlockState(pos.setPos(x1, 0, z1), bedrock, false);
+                chunk.setBlockState(pos.func_181079_c(x1, 0, z1), bedrock, false);
             }
         }
         if (YAMDAConfig.CONFIG.grass_enable.get()) {
             for (x1 = 0; x1 < 16; x1++) {
                 for (y1 = 1; y1 < worldHeight - 3; y1++) {
                     for (z1 = 0; z1 < 16; z1++) {
-                        chunk.setBlockState(pos.setPos(x1, y1, z1), stone, false);
+                        chunk.setBlockState(pos.func_181079_c(x1, y1, z1), stone, false);
                     }
                 }
             }
             for (x1 = 0; x1 < 16; x1++) {
                 for (y1 = worldHeight - 3; y1 < worldHeight - 1; y1++) {
                     for (z1 = 0; z1 < 16; z1++) {
-                        chunk.setBlockState(pos.setPos(x1, y1, z1), dirt, false);
+                        chunk.setBlockState(pos.func_181079_c(x1, y1, z1), dirt, false);
                     }
                 }
             }
             for (x1 = 0; x1 < 16; x1++) {
                 for (y1 = worldHeight - 1; y1 < worldHeight; y1++) {
                     for (z1 = 0; z1 < 16; z1++) {
-                        chunk.setBlockState(pos.setPos(x1, y1, z1), grass, false);
+                        chunk.setBlockState(pos.func_181079_c(x1, y1, z1), grass, false);
                     }
                 }
             }
@@ -83,7 +84,7 @@ public class YAMDAChunkGenerator extends ChunkGenerator<GenerationSettings> {
             for (x1 = 0; x1 < 16; x1++) {
                 for (y1 = 1; y1 < worldHeight; y1++) {
                     for (z1 = 0; z1 < 16; z1++) {
-                        chunk.setBlockState(pos.setPos(x1, y1, z1), stone, false);
+                        chunk.setBlockState(pos.func_181079_c(x1, y1, z1), stone, false);
                     }
                 }
             }
@@ -102,7 +103,7 @@ public class YAMDAChunkGenerator extends ChunkGenerator<GenerationSettings> {
     }
 
     @Override
-    public void carve(IChunk p_222538_1_, GenerationStage.Carving p_222538_2_) {
+    public void func_225550_a_(BiomeManager p_225550_1_, IChunk p_225550_2_, GenerationStage.Carving p_225550_3_) {
     }
 
     @Override
@@ -121,9 +122,9 @@ public class YAMDAChunkGenerator extends ChunkGenerator<GenerationSettings> {
         return false;
     }
 
-    @Override
-    public void initStructureStarts(IChunk p_222533_1_, ChunkGenerator<?> p_222533_2_, TemplateManager p_222533_3_) {
 
+    @Override
+    public void func_227058_a_(BiomeManager p_227058_1_, IChunk p_227058_2_, ChunkGenerator<?> p_227058_3_, TemplateManager p_227058_4_) {
     }
 
     @Override

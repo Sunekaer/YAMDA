@@ -1,9 +1,11 @@
 package com.sunekaer.mods.yamda;
 
+import com.sunekaer.mods.yamda.dimension.YAMDABiomeProvider;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.world.biome.provider.BiomeProviderType;
+import net.minecraft.world.biome.provider.SingleBiomeProviderSettings;
 import net.minecraft.world.gen.ChunkGeneratorType;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.ModDimension;
@@ -27,10 +29,10 @@ public class YAMDAEventHandler {
         event.getRegistry().register(YAMDA.generatorType.setRegistryName(MODID, "generator"));
     }
 
-    @SubscribeEvent
-    public static void onBiomeProviderTypeRegistry(RegistryEvent.Register<BiomeProviderType<?, ?>> event) {
-        event.getRegistry().register(YAMDA.biomeProviderType.setRegistryName(MODID, "generator"));
-    }
+//    @SubscribeEvent
+//    public static void onBiomeProviderTypeRegistry(RegistryEvent.Register<BiomeProviderType<?, ?>> event) {
+//        event.getRegistry().register(YAMDA.biomeProviderType.setRegistryName(MODID, "generator"));
+//    }
 
     @SubscribeEvent
     public static void onBlockRegistry(RegistryEvent.Register<Block> event) {
@@ -41,4 +43,9 @@ public class YAMDAEventHandler {
     public static void onItemRegistry(RegistryEvent.Register<Item> event) {
         event.getRegistry().register(new BlockItem(YAMDA.portal, new Item.Properties().group(YAMDA.GROUP)).setRegistryName(YAMDA.portal.getRegistryName()));
     }
+
+//    @SubscribeEvent
+//    public static void onBiomeProviderType(RegistryEvent.Register<BiomeProviderType> event) {
+//        event.getRegistry().register(new BiomeProviderType<>(YAMDABiomeProvider::new, SingleBiomeProviderSettings::new).setRegistryName("yamda:mining"));
+//    }
 }

@@ -2,28 +2,37 @@ package com.sunekaer.mods.yamda.dimension;
 
 import com.sunekaer.mods.yamda.YAMDA;
 import com.sunekaer.mods.yamda.config.YAMDAConfig;
+import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biomes;
+import net.minecraft.world.biome.provider.BiomeProviderType;
+import net.minecraft.world.biome.provider.SingleBiomeProviderSettings;
 import net.minecraft.world.dimension.Dimension;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.ChunkGenerator;
+import net.minecraft.world.gen.ChunkGeneratorType;
+import net.minecraft.world.gen.OverworldGenSettings;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.Tags;
 
 import javax.annotation.Nullable;
 
 public class YAMDADimension extends Dimension {
+
     public YAMDADimension(World world, DimensionType type) {
-        super(world, type);
+        super(world, type, 1.0f);
     }
 
     @Override
     public ChunkGenerator<?> createChunkGenerator() {
-        return YAMDA.generatorType.create(this.world, YAMDA.biomeProviderType.create(YAMDA.biomeProviderType.createSettings().setBiome(Biomes.PLAINS)), YAMDA.generatorType.createSettings());
+        OverworldGenSettings genSettings = ChunkGeneratorType.SURFACE.createSettings();
+        genSettings.setDefaultBlock(Blocks.STONE.getDefaultState());
+        return YAMDA.generatorType.create(this.world, BiomeProviderType.FIXED.create(BiomeProviderType.FIXED.func_226840_a_(this.world.getWorldInfo()).setBiome(Biomes.PLAINS)), genSettings);
     }
 
     @Nullable
