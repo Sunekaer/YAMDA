@@ -55,28 +55,28 @@ public class YAMDAChunkGenerator extends ChunkGenerator<GenerationSettings> {
 
         for (x1 = 0; x1 < 16; x1++) {
             for (z1 = 0; z1 < 16; z1++) {
-                chunk.setBlockState(pos.func_181079_c(x1, 0, z1), bedrock, false);
+                chunk.setBlockState(pos.setPos(x1, 0, z1), bedrock, false);
             }
         }
         if (YAMDAConfig.CONFIG.grass_enable.get()) {
             for (x1 = 0; x1 < 16; x1++) {
                 for (y1 = 1; y1 < worldHeight - 3; y1++) {
                     for (z1 = 0; z1 < 16; z1++) {
-                        chunk.setBlockState(pos.func_181079_c(x1, y1, z1), stone, false);
+                        chunk.setBlockState(pos.setPos(x1, y1, z1), stone, false);
                     }
                 }
             }
             for (x1 = 0; x1 < 16; x1++) {
                 for (y1 = worldHeight - 3; y1 < worldHeight - 1; y1++) {
                     for (z1 = 0; z1 < 16; z1++) {
-                        chunk.setBlockState(pos.func_181079_c(x1, y1, z1), dirt, false);
+                        chunk.setBlockState(pos.setPos(x1, y1, z1), dirt, false);
                     }
                 }
             }
             for (x1 = 0; x1 < 16; x1++) {
                 for (y1 = worldHeight - 1; y1 < worldHeight; y1++) {
                     for (z1 = 0; z1 < 16; z1++) {
-                        chunk.setBlockState(pos.func_181079_c(x1, y1, z1), grass, false);
+                        chunk.setBlockState(pos.setPos(x1, y1, z1), grass, false);
                     }
                 }
             }
@@ -84,7 +84,7 @@ public class YAMDAChunkGenerator extends ChunkGenerator<GenerationSettings> {
             for (x1 = 0; x1 < 16; x1++) {
                 for (y1 = 1; y1 < worldHeight; y1++) {
                     for (z1 = 0; z1 < 16; z1++) {
-                        chunk.setBlockState(pos.func_181079_c(x1, y1, z1), stone, false);
+                        chunk.setBlockState(pos.setPos(x1, y1, z1), stone, false);
                     }
                 }
             }
@@ -122,10 +122,10 @@ public class YAMDAChunkGenerator extends ChunkGenerator<GenerationSettings> {
         return false;
     }
 
-
     @Override
-    public void func_227058_a_(BiomeManager p_227058_1_, IChunk p_227058_2_, ChunkGenerator<?> p_227058_3_, TemplateManager p_227058_4_) {
+    public void generateStructures(BiomeManager p_227058_1_, IChunk p_227058_2_, ChunkGenerator<?> p_227058_3_, TemplateManager p_227058_4_) {
     }
+
 
     @Override
     public void makeBase(IWorld iWorld, IChunk iChunk) {

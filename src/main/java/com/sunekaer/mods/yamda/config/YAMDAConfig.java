@@ -22,7 +22,7 @@ public class YAMDAConfig {
         public IntValue world_height;
         public IntValue overworldId;
         public BooleanValue canSleepHere;
-        public BooleanValue disableHostileMobs;
+//        public BooleanValue disableHostileMobs;
 
         public ConfigValues(ForgeConfigSpec.Builder builder) {
             builder.comment("YAMDA Config.")
@@ -45,9 +45,10 @@ public class YAMDAConfig {
             canSleepHere = builder
                     .comment("Should you be able to sleep in the dimension")
                     .define("canSleepHere", false);
-            disableHostileMobs = builder
-                    .comment("Should hostile mobs spawn not?")
-                    .define("disableHostileMobs", false);
+
+//            disableHostileMobs = builder
+//                    .comment("Should hostile mobs spawn not?")
+//                    .define("disableHostileMobs", false);
 
             builder.pop();
         }
