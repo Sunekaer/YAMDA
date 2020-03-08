@@ -13,6 +13,7 @@ import net.minecraft.network.play.server.*;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.server.management.PlayerList;
 import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -152,6 +153,10 @@ public class BlockPortal extends Block {
                     changeDim(((ServerPlayerEntity) playerEntity), overWorldPos, DimensionType.getById(YAMDAConfig.CONFIG.getOverworldId()));
                 }
                 if (!foundBlock) {
+                        if(overWorldPos.getY() == 0){
+                            overWorld.setBlockState(overWorldPos, YAMDA.portal.getDefaultState());
+                            changeDim(((ServerPlayerEntity) playerEntity), overWorldPos.offset(Direction.UP, 3), DimensionType.getById(YAMDAConfig.CONFIG.getOverworldId()));
+                        }
                     overWorld.setBlockState(overWorldPos.down(), YAMDA.portal.getDefaultState());
                     changeDim(((ServerPlayerEntity) playerEntity), overWorldPos, DimensionType.getById(YAMDAConfig.CONFIG.getOverworldId()));
                 }
