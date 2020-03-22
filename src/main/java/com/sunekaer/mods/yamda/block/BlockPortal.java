@@ -50,7 +50,7 @@ public class BlockPortal extends Block {
         player.dimension = type;
         ServerWorld serverworld1 = player.server.getWorld(type);
         WorldInfo worldinfo = player.world.getWorldInfo();
-        player.connection.sendPacket(new SRespawnPacket(type, WorldInfo.func_227498_c_(worldinfo.getSeed()), worldinfo.getGenerator(), player.interactionManager.getGameType()));
+        player.connection.sendPacket(new SRespawnPacket(type, WorldInfo.byHashing(worldinfo.getSeed()), worldinfo.getGenerator(), player.interactionManager.getGameType()));
         player.connection.sendPacket(new SServerDifficultyPacket(worldinfo.getDifficulty(), worldinfo.isDifficultyLocked()));
         PlayerList playerlist = player.server.getPlayerList();
         playerlist.updatePermissionLevel(player);
@@ -66,7 +66,7 @@ public class BlockPortal extends Block {
 
         serverworld.getProfiler().endSection();
         player.setWorld(serverworld1);
-        serverworld1.func_217447_b(player);
+        serverworld1.addDuringPortalTeleport(player);
         player.connection.setPlayerLocation(pos.getX() + .5, pos.getY() + .5, pos.getZ() + .5, f1, f);
         player.interactionManager.setWorld(serverworld1);
         player.connection.sendPacket(new SPlayerAbilitiesPacket(player.abilities));
