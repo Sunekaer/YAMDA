@@ -10,7 +10,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.biome.provider.BiomeProviderType;
-import net.minecraft.world.biome.provider.SingleBiomeProviderSettings;
 import net.minecraft.world.dimension.Dimension;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.ChunkGenerator;
@@ -18,7 +17,6 @@ import net.minecraft.world.gen.ChunkGeneratorType;
 import net.minecraft.world.gen.OverworldGenSettings;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.Tags;
 
 import javax.annotation.Nullable;
 
@@ -105,7 +103,7 @@ public class YAMDADimension extends Dimension {
 
     @Override
     public boolean canRespawnHere() {
-        return false;
+        return YAMDAConfig.CONFIG.canSleepHere.get();
     }
 
     @Override

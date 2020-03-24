@@ -108,7 +108,11 @@ public class YAMDAChunkGenerator extends ChunkGenerator<GenerationSettings> {
 
     @Override
     public List<Biome.SpawnListEntry> getPossibleCreatures(EntityClassification creatureType, BlockPos pos) {
-        return Biomes.MOUNTAINS.getSpawns(creatureType);
+        if (YAMDAConfig.CONFIG.disableHostileMobs.get()){
+            return null;
+        } else {
+            return this.world.getBiome(pos).getSpawns(creatureType);
+        }
     }
 
     @Nullable
@@ -131,7 +135,6 @@ public class YAMDAChunkGenerator extends ChunkGenerator<GenerationSettings> {
     public void makeBase(IWorld iWorld, IChunk iChunk) {
 
     }
-
 
     @Nullable
     @Override
