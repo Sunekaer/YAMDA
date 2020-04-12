@@ -113,11 +113,6 @@ public class YAMDADimension extends Dimension {
     }
 
     @Override
-    public boolean isDaytime() {
-        return true;
-    }
-
-    @Override
     public long getWorldTime() {
         long ret = super.getWorldTime();
         return ret;
