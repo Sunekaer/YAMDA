@@ -114,7 +114,12 @@ public class YAMDADimension extends Dimension {
 
     @Override
     public boolean isDaytime() {
-        return true;
+        if (YAMDAConfig.CONFIG.day.get()) {
+            return true;
+        }
+        else {
+            return getWorld().getSkylightSubtracted() < 4;
+        }
     }
 
     @Override
