@@ -29,8 +29,8 @@ public class YAMDANetherDimension extends Dimension {
     @Override
     public ChunkGenerator<?> createChunkGenerator() {
         OverworldGenSettings genSettings = ChunkGeneratorType.SURFACE.createSettings();
-        genSettings.setDefaultBlock(Blocks.STONE.getDefaultState());
-        return YAMDA.generatorType.create(this.world, BiomeProviderType.FIXED.create(BiomeProviderType.FIXED.func_226840_a_(this.world.getWorldInfo()).setBiome(Biomes.PLAINS)), genSettings);
+        genSettings.setDefaultBlock(Blocks.NETHERRACK.getDefaultState());
+        return YAMDA.netherGeneratorType.create(this.world, BiomeProviderType.FIXED.create(BiomeProviderType.FIXED.func_226840_a_(this.world.getWorldInfo()).setBiome(YAMDA.netherBiome)), genSettings);
     }
 
     @Nullable
@@ -84,7 +84,7 @@ public class YAMDANetherDimension extends Dimension {
 
     @Override
     public boolean isSurfaceWorld() {
-        return true;
+        return false;
     }
 
     @Override
@@ -103,7 +103,7 @@ public class YAMDANetherDimension extends Dimension {
 
     @Override
     public boolean canRespawnHere() {
-        return YAMDAConfig.CONFIG.canSleepHere.get();
+        return YAMDAConfig.CONFIG.netherCanSleepHere.get();
     }
 
     @Override
@@ -125,6 +125,6 @@ public class YAMDANetherDimension extends Dimension {
 
     @Override
     public boolean hasSkyLight() {
-        return true;
+        return false;
     }
 }

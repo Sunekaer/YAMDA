@@ -1,5 +1,6 @@
 package com.sunekaer.mods.yamda.netherdimension;
 
+import com.sunekaer.mods.yamda.YAMDA;
 import com.sunekaer.mods.yamda.config.YAMDAConfig;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -35,31 +36,21 @@ public class YAMDANetherChunkGenerator extends ChunkGenerator<GenerationSettings
         int k = i * 16;
         int l = j * 16;
         BlockPos blockpos = new BlockPos(k, 0, l);
-        Biome biome = Biomes.NETHER;
+        Biome biome = YAMDA.netherBiome;
         SharedSeedRandom sharedseedrandom = new SharedSeedRandom();
         long i1 = sharedseedrandom.setDecorationSeed(region.getSeed(), k, l);
-        List<ConfiguredFeature<?, ?>> features = biome.getFeatures(GenerationStage.Decoration.UNDERGROUND_DECORATION);
 
-        for (int i2 = features.size() - 1; i2 >= 0; i2--) {
-            ConfiguredFeature<?, ?> feature = features.get(i2);
-
-            System.out.println("BANANA");
-            /*if (feature.feature.getRegistryName().equals(new ResourceLocation("minecraft:")))*/
-        }
-
-
-        biome.decorate(GenerationStage.Decoration.VEGETAL_DECORATION, this, region, i1, sharedseedrandom, blockpos);
+        biome.decorate(GenerationStage.Decoration.UNDERGROUND_DECORATION, this, region, i1, sharedseedrandom, blockpos);
         biome.decorate(GenerationStage.Decoration.UNDERGROUND_ORES, this, region, i1, sharedseedrandom, blockpos);
     }
 
     @Override
     public void func_225551_a_(WorldGenRegion p_225551_1_, IChunk chunk) {
         BlockState bedrock = Blocks.BEDROCK.getDefaultState();
-        BlockState stone = Blocks.STONE.getDefaultState();
-        BlockState dirt = Blocks.DIRT.getDefaultState();
-        BlockState grass = Blocks.GRASS_BLOCK.getDefaultState();
+        BlockState netherrack = Blocks.NETHERRACK.getDefaultState();
         int x1, y1, z1;
-        int worldHeight = YAMDAConfig.CONFIG.world_height.get();
+        //int worldHeight = YAMDAConfig.CONFIG.world_height.get();
+        int worldHeight = 128;
 
         BlockPos.Mutable pos = new BlockPos.Mutable();
 
@@ -68,35 +59,28 @@ public class YAMDANetherChunkGenerator extends ChunkGenerator<GenerationSettings
                 chunk.setBlockState(pos.setPos(x1, 0, z1), bedrock, false);
             }
         }
-        if (YAMDAConfig.CONFIG.grass_enable.get()) {
-            for (x1 = 0; x1 < 16; x1++) {
-                for (y1 = 1; y1 < worldHeight - 3; y1++) {
-                    for (z1 = 0; z1 < 16; z1++) {
-                        chunk.setBlockState(pos.setPos(x1, y1, z1), stone, false);
-                    }
+
+        int netherMiddle = (int) Math.floor(YAMDAConfig.CONFIG.netherWorldHeight.get() / 2);
+
+        for (x1 = 0; x1 < 16; x1++) {
+            for (y1 = 1; y1 < netherMiddle; y1++) {
+                for (z1 = 0; z1 < 16; z1++) {
+                    chunk.setBlockState(pos.setPos(x1, y1, z1), netherrack, false);
                 }
             }
-            for (x1 = 0; x1 < 16; x1++) {
-                for (y1 = worldHeight - 3; y1 < worldHeight - 1; y1++) {
-                    for (z1 = 0; z1 < 16; z1++) {
-                        chunk.setBlockState(pos.setPos(x1, y1, z1), dirt, false);
-                    }
+        }
+
+        for (x1 = 0; x1 < 16; x1++) {
+            for (y1 = netherMiddle + 2; y1 < YAMDAConfig.CONFIG.netherWorldHeight.get() - 1; y1++) {
+                for (z1 = 0; z1 < 16; z1++) {
+                    chunk.setBlockState(pos.setPos(x1, y1, z1), netherrack, false);
                 }
             }
-            for (x1 = 0; x1 < 16; x1++) {
-                for (y1 = worldHeight - 1; y1 < worldHeight; y1++) {
-                    for (z1 = 0; z1 < 16; z1++) {
-                        chunk.setBlockState(pos.setPos(x1, y1, z1), grass, false);
-                    }
-                }
-            }
-        } else {
-            for (x1 = 0; x1 < 16; x1++) {
-                for (y1 = 1; y1 < worldHeight; y1++) {
-                    for (z1 = 0; z1 < 16; z1++) {
-                        chunk.setBlockState(pos.setPos(x1, y1, z1), stone, false);
-                    }
-                }
+        }
+
+        for (x1 = 0; x1 < 16; x1++) {
+            for (z1 = 0; z1 < 16; z1++) {
+                chunk.setBlockState(pos.setPos(x1, worldHeight - 1, z1), bedrock, false);
             }
         }
     }

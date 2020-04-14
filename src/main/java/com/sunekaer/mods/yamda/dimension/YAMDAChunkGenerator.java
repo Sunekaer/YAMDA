@@ -49,7 +49,7 @@ public class YAMDAChunkGenerator extends ChunkGenerator<GenerationSettings> {
         BlockState dirt = Blocks.DIRT.getDefaultState();
         BlockState grass = Blocks.GRASS_BLOCK.getDefaultState();
         int x1, y1, z1;
-        int worldHeight = YAMDAConfig.CONFIG.world_height.get();
+        int worldHeight = YAMDAConfig.CONFIG.worldHeight.get();
 
         BlockPos.Mutable pos = new BlockPos.Mutable();
 
@@ -58,7 +58,7 @@ public class YAMDAChunkGenerator extends ChunkGenerator<GenerationSettings> {
                 chunk.setBlockState(pos.setPos(x1, 0, z1), bedrock, false);
             }
         }
-        if (YAMDAConfig.CONFIG.grass_enable.get()) {
+        if (YAMDAConfig.CONFIG.grassEnable.get()) {
             for (x1 = 0; x1 < 16; x1++) {
                 for (y1 = 1; y1 < worldHeight - 3; y1++) {
                     for (z1 = 0; z1 < 16; z1++) {

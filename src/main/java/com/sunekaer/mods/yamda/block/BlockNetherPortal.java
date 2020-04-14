@@ -34,9 +34,9 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 @SuppressWarnings("deprecation")
-public class NetherBlockPortal extends Block {
+public class BlockNetherPortal extends Block {
 
-    public NetherBlockPortal() {
+    public BlockNetherPortal() {
         super(Properties.create(Material.PORTAL).hardnessAndResistance(2F));
     }
 
@@ -99,12 +99,14 @@ public class NetherBlockPortal extends Block {
         if (!worldIn.isRemote) {
             //FROM OVERWORLD TO MINING DIM
             if (worldIn.getDimension().getType().getId() == YAMDAConfig.CONFIG.getOverworldId()) {
-                if (DimensionType.byName(YAMDA.YAMDA_DIM) == null) {
-                    DimensionManager.registerDimension(YAMDA.YAMDA_DIM, YAMDA.dimension, null, true);
+                if (DimensionType.byName(YAMDA.YAMDA_NETHER_DIM) == null) {
+                    DimensionManager.registerDimension(YAMDA.YAMDA_NETHER_DIM, YAMDA.netherDimension, null, true);
                 }
-                World otherWorld = worldIn.getServer().getWorld(DimensionType.byName(YAMDA.YAMDA_DIM));
-                otherWorld.getBlockState(pos);
-                BlockPos otherWorldPos = otherWorld.getHeight(Heightmap.Type.WORLD_SURFACE, pos);
+                World otherWorld = worldIn.getServer().getWorld(DimensionType.byName(YAMDA.YAMDA_NETHER_DIM));
+
+                int netherMiddle = (int) Math.floor(YAMDAConfig.CONFIG.netherWorldHeight.get() / 2);
+
+                BlockPos otherWorldPos = new BlockPos(pos.getX(), netherMiddle, pos.getZ());
                 boolean foundBlock = false;
                 BlockPos.Mutable mutableBlockPos = new BlockPos.Mutable(0, 0, 0);
 
@@ -112,7 +114,7 @@ public class NetherBlockPortal extends Block {
                     for (int x = pos.getX() - 6; x < pos.getX() + 6; x++) {
                         for (int z = pos.getZ() - 6; z < pos.getZ() + 6; z++) {
                             mutableBlockPos.setPos(x, y, z);
-                            if (otherWorld.getBlockState(mutableBlockPos).getBlock() == YAMDA.portal) {
+                            if (otherWorld.getBlockState(mutableBlockPos).getBlock() == YAMDA.netherPortal) {
                                 otherWorldPos = new BlockPos(x, y + 1, z);
                                 foundBlock = true;
                                 break;
@@ -121,16 +123,16 @@ public class NetherBlockPortal extends Block {
                     }
                 }
                 if (foundBlock) {
-                    changeDim(((ServerPlayerEntity) playerEntity), otherWorldPos, DimensionType.byName(YAMDA.YAMDA_DIM));
+                    changeDim(((ServerPlayerEntity) playerEntity), otherWorldPos, DimensionType.byName(YAMDA.YAMDA_NETHER_DIM));
                 }
                 if (!foundBlock) {
-                    otherWorld.setBlockState(otherWorldPos.down(), YAMDA.portal.getDefaultState());
-                    changeDim(((ServerPlayerEntity) playerEntity), otherWorldPos, DimensionType.byName(YAMDA.YAMDA_DIM));
+                    otherWorld.setBlockState(otherWorldPos.down(), YAMDA.netherPortal.getDefaultState());
+                    changeDim(((ServerPlayerEntity) playerEntity), otherWorldPos, DimensionType.byName(YAMDA.YAMDA_NETHER_DIM));
                 }
             }
 
             //FROM MINING DIM TO OVERWORLD
-            if (worldIn.getDimension().getType() == DimensionType.byName(YAMDA.YAMDA_DIM)) {
+            if (worldIn.getDimension().getType() == DimensionType.byName(YAMDA.YAMDA_NETHER_DIM)) {
                 World overWorld = worldIn.getServer().getWorld(DimensionType.getById(YAMDAConfig.CONFIG.getOverworldId()));
                 overWorld.getBlockState(pos);
                 BlockPos overWorldPos = overWorld.getHeight(Heightmap.Type.WORLD_SURFACE, pos);
@@ -141,7 +143,7 @@ public class NetherBlockPortal extends Block {
                     for (int x = pos.getX() - 6; x < pos.getX() + 6; x++) {
                         for (int z = pos.getZ() - 6; z < pos.getZ() + 6; z++) {
                             mutableBlockPos.setPos(x, y, z);
-                            if (overWorld.getBlockState(mutableBlockPos).getBlock() == YAMDA.portal) {
+                            if (overWorld.getBlockState(mutableBlockPos).getBlock() == YAMDA.netherPortal) {
                                 overWorldPos = new BlockPos(x, y + 1, z);
                                 foundBlock = true;
                                 break;
@@ -154,10 +156,10 @@ public class NetherBlockPortal extends Block {
                 }
                 if (!foundBlock) {
                         if(overWorldPos.getY() == 0){
-                            overWorld.setBlockState(overWorldPos, YAMDA.portal.getDefaultState());
+                            overWorld.setBlockState(overWorldPos, YAMDA.netherPortal.getDefaultState());
                             changeDim(((ServerPlayerEntity) playerEntity), overWorldPos.offset(Direction.UP, 3), DimensionType.getById(YAMDAConfig.CONFIG.getOverworldId()));
                         }
-                    overWorld.setBlockState(overWorldPos.down(), YAMDA.portal.getDefaultState());
+                    overWorld.setBlockState(overWorldPos.down(), YAMDA.netherPortal.getDefaultState());
                     changeDim(((ServerPlayerEntity) playerEntity), overWorldPos, DimensionType.getById(YAMDAConfig.CONFIG.getOverworldId()));
                 }
             }

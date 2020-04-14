@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "bpb",
+    "beb",
+    "bbb"
+  ],
+  "key": {
+    "b": {
+      "item": "minecraft:nether_bricks"
+    },
+    "p": {
+      "item": "minecraft:stone_pickaxe"
+    },
+    "e": {
+      "item": "minecraft:ender_pearl"
+    }
+  },
+  "result": {
+    "item": "yamda:nether_portal",
+    "count": 1
+  }
+}

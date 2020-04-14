@@ -1,6 +1,7 @@
 package com.sunekaer.mods.yamda.netherdimension;
 
 import com.google.common.collect.Sets;
+import com.sunekaer.mods.yamda.YAMDA;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
@@ -15,12 +16,12 @@ import java.util.Random;
 import java.util.Set;
 
 public class YAMDANetherBiomeProvider extends BiomeProvider {
-    private static final List<Biome> SPAWN = Collections.singletonList(Biomes.PLAINS);
+    private static final List<Biome> SPAWN = Collections.singletonList(YAMDA.netherBiome);
     private final Biome biome;
 
     public YAMDANetherBiomeProvider(SingleBiomeProviderSettings settings) {
-        super((Set<Biome>) Biomes.PLAINS);
-        this.biome = Biomes.PLAINS;
+        super((Set<Biome>) YAMDA.netherBiome);
+        this.biome = YAMDA.netherBiome;
 
     }
 
@@ -58,6 +59,6 @@ public class YAMDANetherBiomeProvider extends BiomeProvider {
 
     @Override
     public Biome getNoiseBiome(int i, int i1, int i2) {
-        return Biomes.PLAINS;
+        return YAMDA.netherBiome;
     }
 }
