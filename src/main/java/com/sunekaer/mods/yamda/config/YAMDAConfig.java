@@ -17,37 +17,65 @@ public class YAMDAConfig {
     }
 
     public static class ConfigValues {
-        public BooleanValue grass_enable;
-        public BooleanValue day;
-        public IntValue world_height;
+        //Common
         public IntValue overworldId;
+
+        //YAMDA dim
+        public BooleanValue grassEnable;
+        public BooleanValue day;
+        public IntValue worldHeight;
         public BooleanValue canSleepHere;
         public BooleanValue disableHostileMobs;
+
+        //YAMDA nether dim
+        public IntValue netherWorldHeight;
+        public BooleanValue disableNetherHostileMobs;
+        public BooleanValue netherCanSleepHere;
 
         public ConfigValues(ForgeConfigSpec.Builder builder) {
             builder.comment("YAMDA Config.")
                     .push("common");
 
-            grass_enable = builder
+            overworldId = builder
+                    .comment("Overworld dim ID")
+                    .defineInRange("overworldId", 0, -1000, 1000);
+
+            builder.pop();
+
+            builder.comment("Overworld style mining dim")
+                    .push("YAMDA dim");
+
+            grassEnable = builder
                     .comment("Should the layers top of the world be dirt and grass")
                     .define("grass_enable", true);
             day = builder
                     .comment("Should it always be day")
                     .define("day", true);
-            world_height = builder
+            worldHeight = builder
                     .comment("Height of the world")
                     .defineInRange("world_height", 70, 5, 256);
-            overworldId = builder
-                    .comment("Overworld dim ID")
-                    .defineInRange("overworldId", 0, -1000, 1000);
 
             canSleepHere = builder
                     .comment("Should you be able to sleep in the dimension")
                     .define("canSleepHere", true);
 
             disableHostileMobs = builder
-                    .comment("Should hostile mobs spawn not?")
+                    .comment("Should hostile mobs spawns be disabled?")
                     .define("disableHostileMobs", true);
+
+            builder.pop();
+
+            builder.comment("Nether style mining dim")
+                    .push("YAMDA Nether dim");
+            netherWorldHeight = builder
+                    .comment("Height of the world")
+                    .defineInRange("netherWorldHeight", 128, 64, 128);
+            disableNetherHostileMobs = builder
+                    .comment("Should hostile mob spawns be disabled?")
+                    .define("disableNetherHostileMobs", true);
+            netherCanSleepHere = builder
+                    .comment("Should you be able to sleep in the dimension")
+                    .define("netherCanSleepHere", true);
 
             builder.pop();
         }
