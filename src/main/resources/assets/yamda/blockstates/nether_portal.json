@@ -1,0 +1,5 @@
+{
+    "variants": {
+        "": { "model": "yamda:block/nether_portal" }
+    }
+}

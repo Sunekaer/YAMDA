@@ -1,5 +1,7 @@
 {
   "itemGroup.yamda": "YAMDA",
   "block.yamda.portal": "Mining Dim Portal",
-  "block.yamda.portal.tooltip": "§cRight-click portal to teleport"
+  "block.yamda.portal.tooltip": "§cRight-click portal to teleport",
+  "block.yamda.nether_portal": "Nether Mining Dim Portal",
+  "biome.yamda.yamda_nether": "Nether Mining Dim"
 }
