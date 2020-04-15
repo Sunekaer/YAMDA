@@ -86,7 +86,7 @@ public class BlockNetherPortal extends Block {
 
     @Override
     public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
-        return (worldIn.getDimension().getType().getId() == YAMDAConfig.CONFIG.getOverworldId() || worldIn.getDimension().getType() == DimensionType.byName(YAMDA.YAMDA_DIM) && super.isValidPosition(state, worldIn, pos));
+        return (worldIn.getDimension().getType().getId() == YAMDAConfig.CONFIG.getOverworldId() || worldIn.getDimension().getType() == DimensionType.byName(YAMDA.YAMDA_NETHER_DIM) && super.isValidPosition(state, worldIn, pos));
     }
 
     @Override
