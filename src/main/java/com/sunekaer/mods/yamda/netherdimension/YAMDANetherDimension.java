@@ -8,7 +8,6 @@ import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.biome.provider.BiomeProviderType;
 import net.minecraft.world.dimension.Dimension;
 import net.minecraft.world.dimension.DimensionType;
@@ -103,7 +102,7 @@ public class YAMDANetherDimension extends Dimension {
 
     @Override
     public boolean canRespawnHere() {
-        return YAMDAConfig.CONFIG.netherCanSleepHere.get();
+        return false;
     }
 
     @Override

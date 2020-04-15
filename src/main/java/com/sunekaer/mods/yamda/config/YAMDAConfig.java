@@ -30,7 +30,6 @@ public class YAMDAConfig {
         //YAMDA nether dim
         public IntValue netherWorldHeight;
         public BooleanValue disableNetherHostileMobs;
-        public BooleanValue netherCanSleepHere;
 
         public ConfigValues(ForgeConfigSpec.Builder builder) {
             builder.comment("YAMDA Config.")
@@ -73,9 +72,6 @@ public class YAMDAConfig {
             disableNetherHostileMobs = builder
                     .comment("Should hostile mob spawns be disabled?")
                     .define("disableNetherHostileMobs", true);
-            netherCanSleepHere = builder
-                    .comment("Should you be able to sleep in the dimension")
-                    .define("netherCanSleepHere", true);
 
             builder.pop();
         }

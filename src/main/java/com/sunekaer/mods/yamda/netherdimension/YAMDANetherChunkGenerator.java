@@ -11,11 +11,9 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeManager;
-import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.chunk.IChunk;
 import net.minecraft.world.gen.*;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.feature.template.TemplateManager;
@@ -49,7 +47,6 @@ public class YAMDANetherChunkGenerator extends ChunkGenerator<GenerationSettings
         BlockState bedrock = Blocks.BEDROCK.getDefaultState();
         BlockState netherrack = Blocks.NETHERRACK.getDefaultState();
         int x1, y1, z1;
-        //int worldHeight = YAMDAConfig.CONFIG.world_height.get();
         int worldHeight = 128;
 
         BlockPos.Mutable pos = new BlockPos.Mutable();
@@ -60,18 +57,8 @@ public class YAMDANetherChunkGenerator extends ChunkGenerator<GenerationSettings
             }
         }
 
-        int netherMiddle = (int) Math.floor(YAMDAConfig.CONFIG.netherWorldHeight.get() / 2);
-
         for (x1 = 0; x1 < 16; x1++) {
-            for (y1 = 1; y1 < netherMiddle; y1++) {
-                for (z1 = 0; z1 < 16; z1++) {
-                    chunk.setBlockState(pos.setPos(x1, y1, z1), netherrack, false);
-                }
-            }
-        }
-
-        for (x1 = 0; x1 < 16; x1++) {
-            for (y1 = netherMiddle + 2; y1 < YAMDAConfig.CONFIG.netherWorldHeight.get() - 1; y1++) {
+            for (y1 = 1; y1 < YAMDAConfig.CONFIG.netherWorldHeight.get() - 1; y1++) {
                 for (z1 = 0; z1 < 16; z1++) {
                     chunk.setBlockState(pos.setPos(x1, y1, z1), netherrack, false);
                 }

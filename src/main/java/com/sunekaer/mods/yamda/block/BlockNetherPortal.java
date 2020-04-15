@@ -4,6 +4,7 @@ import com.sunekaer.mods.yamda.YAMDA;
 import com.sunekaer.mods.yamda.config.YAMDAConfig;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
@@ -110,7 +111,7 @@ public class BlockNetherPortal extends Block {
                 boolean foundBlock = false;
                 BlockPos.Mutable mutableBlockPos = new BlockPos.Mutable(0, 0, 0);
 
-                for (int y = 0; y < 256; y++) {
+                for (int y = 0; y < YAMDAConfig.CONFIG.netherWorldHeight.get() - 4; y++) {
                     for (int x = pos.getX() - 6; x < pos.getX() + 6; x++) {
                         for (int z = pos.getZ() - 6; z < pos.getZ() + 6; z++) {
                             mutableBlockPos.setPos(x, y, z);
@@ -127,6 +128,18 @@ public class BlockNetherPortal extends Block {
                 }
                 if (!foundBlock) {
                     otherWorld.setBlockState(otherWorldPos.down(), YAMDA.netherPortal.getDefaultState());
+                    double startX = otherWorldPos.getX() - 1;
+                    double startZ = otherWorldPos.getZ() - 1;
+                    double endX = otherWorldPos.getX() + 2;
+                    double endZ = otherWorldPos.getZ() + 2;
+                    for (int y = otherWorldPos.getY(); y < otherWorldPos.getY() + 3; ++y) {
+                        for (double x = startX; x < endX; x++) {
+                            for (double z = startZ; z < endZ; z++) {
+                                BlockPos tBlockPos = new BlockPos(x, y, z);
+                                otherWorld.setBlockState(tBlockPos, Blocks.AIR.getDefaultState(), 2);
+                            }
+                        }
+                    }
                     changeDim(((ServerPlayerEntity) playerEntity), otherWorldPos, DimensionType.byName(YAMDA.YAMDA_NETHER_DIM));
                 }
             }
